@@ -40,6 +40,11 @@ public class Config implements CommandLineRunner {
 	    
 	    userRepository.saveAll(Arrays.asList(maria,xis));
 	    postRepository.saveAll(Arrays.asList(post1,post2));
+	    
+	    maria.getPosts().addAll(Arrays.asList(post1));
+	    xis.getPosts().addAll(Arrays.asList(post2));
+	    
+	    userRepository.saveAll(Arrays.asList(maria,xis));
 	}
 
 }
