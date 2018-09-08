@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.carolinachang.blogmongodb.domain.Post;
 import com.carolinachang.blogmongodb.domain.User;
 import com.carolinachang.blogmongodb.services.UserService;
 
@@ -39,5 +40,11 @@ public class UserResource {
 		User newuser = userService.insert(user);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newuser.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value="/{id}/posts" ,method=RequestMethod.GET)
+	public ResponseEntity<List<Post>>  findPosts(@PathVariable String id){
+		User user = userService.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
 	}
 }
